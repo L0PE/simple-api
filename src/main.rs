@@ -40,4 +40,5 @@ fn validate_event(event: &Value) {
     assert!(event.is_object());
     assert!(event["username"].is_string());
     assert!(event["message"].is_string());
+    assert!(event["message"].to_string().len() < 255)
 }
