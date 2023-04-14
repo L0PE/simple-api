@@ -1,0 +1,15 @@
+[package]
+name = "GetMessages"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = "^0.55.0"
+aws-sdk-dynamodb = "^0.25.1"
+tokio = { version = "1", features = ["full"] }
+lambda_runtime = "0.8.0"
+serde = "^1.0.160"
+serde_json = "^1.0.95"
+serde_derive = "^1.0.160"

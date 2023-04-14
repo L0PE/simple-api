@@ -10,7 +10,22 @@ Resources:
       Handler: bootstrap
       Runtime: provided.al2
       Timeout: 5
-      CodeUri: CreateMessage/target/lambda/simple-api/
+      CodeUri: CreateMessage/target/lambda/CreateMessage/
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          DYNAMO_DB_TABLE_NAME: !Ref MessageTable
+
+  GetMessagesLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      MemorySize: 128
+      Architectures: [ "arm64" ]
+      Handler: bootstrap
+      Runtime: provided.al2
+      Timeout: 5
+      CodeUri: GetMessages/target/lambda/GetMessages/
       Policies:
         - AmazonDynamoDBFullAccess
       Environment:
