@@ -11,6 +11,28 @@ Resources:
       Runtime: provided.al2
       Timeout: 5
       CodeUri: target/lambda/simple-api/
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Environment:
+        Variables:
+          DYNAMO_DB_TABLE_NAME: !Ref MessageTable
+
+  MessageTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
 
 Outputs:
   FunctionName:

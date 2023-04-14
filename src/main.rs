@@ -6,6 +6,7 @@ use aws_sdk_dynamodb;
 use aws_sdk_dynamodb::types::AttributeValue;
 use uuid::Uuid;
 use chrono::{Utc, Duration};
+use std::env;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -23,7 +24,7 @@ async fn handler(lambda_event: LambdaEvent<Value>) -> Result<Value, Error> {
 
     let request = client
         .put_item()
-        .table_name("test")
+        .table_name(env::var("DYNAMO_DB_TABLE_NAME").unwrap())
         .item("id", AttributeValue::S(Uuid::new_v4().to_string()))
         .item("username", AttributeValue::S(event["username"].to_string()))
         .item("message", AttributeValue::S(event["message"].to_string()))
