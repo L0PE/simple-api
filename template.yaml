@@ -10,7 +10,7 @@ Resources:
       Handler: bootstrap
       Runtime: provided.al2
       Timeout: 5
-      CodeUri: CreateMessage/target/lambda/CreateMessage/
+      CodeUri: create_message/target/lambda/create_message/
       Policies:
         - AmazonDynamoDBFullAccess
       Environment:
@@ -32,7 +32,7 @@ Resources:
       Handler: bootstrap
       Runtime: provided.al2
       Timeout: 5
-      CodeUri: GetMessages/target/lambda/GetMessages/
+      CodeUri: get_messages/target/lambda/get_messages/
       Policies:
         - AmazonDynamoDBReadOnlyAccess
       Environment:

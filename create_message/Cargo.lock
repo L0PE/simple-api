@@ -3,23 +3,6 @@
 version = 3
 
 [[package]]
-name = "CreateMessage"
-version = "0.1.0"
-dependencies = [
- "aws-config",
- "aws-sdk-dynamodb",
- "chrono",
- "lambda_runtime",
- "log",
- "serde",
- "serde_derive",
- "serde_json",
- "simple_logger",
- "tokio",
- "uuid",
-]
-
-[[package]]
 name = "aho-corasick"
 version = "0.7.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -518,6 +501,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "280a9f2d8b3a38871a3c8a46fb80db65e5e5ed97da80c4d08bf27fb63e35e181"
 dependencies = [
  "libc",
+]
+
+[[package]]
+name = "create_message"
+version = "0.1.0"
+dependencies = [
+ "aws-config",
+ "aws-sdk-dynamodb",
+ "chrono",
+ "lambda_runtime",
+ "log",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "simple_logger",
+ "tokio",
+ "uuid",
 ]
 
 [[package]]

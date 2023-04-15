@@ -1,8 +1,8 @@
 version = 0.1
 [default.deploy.parameters]
-stack_name = "sam-app"
+stack_name = "simple-message-api"
 resolve_s3 = true
-s3_prefix = "sam-app"
+s3_prefix = "simple-message-api"
 region = "eu-central-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"

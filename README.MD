@@ -8,9 +8,9 @@ Store and returns simple messages
 
 1. Build lambda images
     ```shell
-      cd CreateMessage
+      cd create_message
       cargo lambda build --release --arm64
-      cd ../GetMessages
+      cd ../get_messages
       cargo lambda build --release --arm64
       cd ..
     ```
