@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  version: "1.0"
+  title: "SimpleMessageApi"
+paths:
+  /messages:
+    get:
+      tags:
+        - messages
+      summary: Get all messages
+      operationId: getMessage
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GetMessagesResponse'
+        '500':
+          description: Internal error
+    post:
+      tags:
+        - pet
+      summary: Add a new messages
+      operationId: addMessages
+      requestBody:
+        description: Create a new messages
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMessagesRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMessagesResponse'
+        '502':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMessagesFailedResponse'
+components:
+  schemas:
+    GetMessagesResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "b1676fdb-66a9-4537-b08a-032d3af4acbc"
+        username:
+          type: string
+          example: "User"
+        message:
+          type: string
+          example: "Hello!"
+        created_at:
+          type: string
+          example: "2023-04-15 12:10:00.594014882 UTC"
+    CreateMessagesRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          example: User
+        message:
+          type: string
+          example: "Hello!"
+    CreateMessagesResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Message added successfully"
+    GetMessagesFailedResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Something went wrong!"
