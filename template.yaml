@@ -16,6 +16,13 @@ Resources:
       Environment:
         Variables:
           DYNAMO_DB_TABLE_NAME: !Ref MessageTable
+      Events:
+        GetMessageAPI:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MessageApi
+            Path: /messages
+            Method: POST
 
   GetMessagesLambda:
     Type: AWS::Serverless::Function
@@ -27,10 +34,17 @@ Resources:
       Timeout: 5
       CodeUri: GetMessages/target/lambda/GetMessages/
       Policies:
-        - AmazonDynamoDBFullAccess
+        - AmazonDynamoDBReadOnlyAccess
       Environment:
         Variables:
           DYNAMO_DB_TABLE_NAME: !Ref MessageTable
+      Events:
+        GetMessageAPI:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MessageApi
+            Path: /messages
+            Method: GET
 
   MessageTable:
     Type: AWS::DynamoDB::Table
@@ -48,8 +62,8 @@ Resources:
         AttributeName: ttl
         Enabled: true
 
-
-Outputs:
-  FunctionName:
-    Value: !Ref CreateMessageLambda
-    Description: Name of the Lambda function
+  MessageApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      OpenApiVersion: 3.0.3

@@ -1,10 +1,8 @@
-use std::collections::HashMap;
 use lambda_runtime::{service_fn, LambdaEvent, Error};
 use serde_json::{json, Value};
 use aws_config;
 use aws_sdk_dynamodb;
 use std::env;
-
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
@@ -24,17 +22,27 @@ async fn handler(_lambda_event: LambdaEvent<Value>) -> Result<Value, Error> {
         .send()
         .await?;
 
-    let response = match dynamo_db_response.items() {
-        Some(messages) => messages.iter()
-            .map(|message| json!({
+    let (response_body, code) = match dynamo_db_response.items() {
+        Some(messages) => (
+            messages.iter()
+                .map(|message| json!({
                 "id": message.get("id").unwrap().as_s().unwrap(),
                 "username": message.get("username").unwrap().as_s().unwrap(),
                 "message": message.get("message").unwrap().as_s().unwrap(),
                 "created_at": message.get("created_at").unwrap().as_s().unwrap()
             }))
-            .collect(),
-        _ => json!({"message": "Something went wrong!"})
+                .collect(),
+            200
+        ),
+        _ => (json!({"message": "Something went wrong!"}), 500)
     };
 
-    Ok(json!(response))
+    Ok(json!({
+        "statusCode": code,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": format!("{}", response_body),
+        "isBase64Encoded": false
+    }))
 }
