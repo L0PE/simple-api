@@ -18,7 +18,6 @@ async fn handler(_lambda_event: LambdaEvent<Value>) -> Result<Value, Error> {
     let dynamo_db_response = client
         .scan()
         .table_name(env::var("DYNAMO_DB_TABLE_NAME").unwrap())
-        .limit(20)
         .send()
         .await?;
 
